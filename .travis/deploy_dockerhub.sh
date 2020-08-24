@@ -1,5 +1,5 @@
 #!/bin/sh
-docker login -u $DOCKER_USER -p $DOCKER_PASS
+docker login -u $DOCKER_USER --password-stdin $DOCKER_PASS
 if [ "$TRAVIS_BRANCH" = "master" ]; then
     TAG="latest"
 else
@@ -7,5 +7,5 @@ else
 fi
 CORRECT_NAME=$(echo $TRAVIS_REPO_SLUG | tr '[:upper:]' '[:lower:]')
 docker build -f Dockerfile -t $CORRECT_NAME:$TAG .
-docker login -u $DOCKER_USER -p $DOCKER_PASS
-docker push $CORRECT_NAME:$TAG
+docker login -u $DOCKER_USER --password-stdin $DOCKER_PASS
+sudo docker push $CORRECT_NAME:$TAG
