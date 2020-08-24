@@ -5,6 +5,6 @@ if [ "$TRAVIS_BRANCH" = "master" ]; then
 else
     TAG="$TRAVIS_BRANCH"
 fi
-CORRECT_NAME = $TRAVIS_REPO_SLUG:$TAG | tr '[:upper:]' '[:lower:]'
-docker build -f Dockerfile -t $CORRECT_NAME .
-docker push $CORRECT_NAME
+CORRECT_NAME=$(echo $TRAVIS_REPO_SLUG | tr '[:upper:]' '[:lower:]')
+docker build -f Dockerfile -t $CORRECT_NAME:$TAG .
+docker push $CORRECT_NAME:$TAG
